@@ -1,8 +1,6 @@
 Rfoursquare
 ===========
 
-# Rfoursquare
-
 R wrapper for the [foursquare v2 API](http://developer.foursquare.com/docs/). 
 
 Philosophy:
@@ -80,7 +78,7 @@ users.approve()
 users.deny()
 users.setpings(USER_ID = "16157612",value = FALSE)
 users.unfriend(USER_ID = "16157612")
-# [NOT IMPLEMENTED] users.update() # photo related
+[NOT IMPLEMENTED] users.update() # photo related
 venues.venues(VENUE_ID = "50c10b72e4b0dbf359f7d91b")
 venues.add() # untested
 venues.categories()
@@ -154,8 +152,8 @@ lists.updateitem()
 updates.updates(UPDATE_ID = "5420f058498e7ede906008b0")
 updates.notifications()
 updates.marknotificationsread(highWatermark = "1411444768")
-# [NOT IMPLEMENTED] photos.photos() #photo related
-# [NOT IMPLEMENTED] photos.add() # photo related
+[NOT IMPLEMENTED] photos.photos() #photo related
+[NOT IMPLEMENTED] photos.add() # photo related
 settings.settings(SETTING_ID = 'receivePings')
 settings.all()
 settings.set(SETTING_ID = 'receivePings',value = 1)
@@ -174,7 +172,7 @@ pages.access(USER_ID = "32834042")
 pages.similar(USER_ID = "32834042")
 pages.timeseries(PAGE_ID = "32834042")
 pages.venues(PAGE_ID = "32834042")
-# [NOT IMPLEMENTED] pages.follow(USER_ID = "32834042", set="0") # weird
+[NOT IMPLEMENTED] pages.follow(USER_ID = "32834042", set="0") # weird
 pageupdates.pageupdates() # untested
 pageupdates.add() # untested
 pageupdates.list() # untested
