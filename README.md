@@ -117,7 +117,7 @@ venuegroups.addvenue()
 venuegroups.edit() # untested
 venuegroups.removevenue() # untested
 venuegroups.update()
-checkins.checkins(CHECKIN_ID = "542ab920498eadb470df2bfc") #################################################
+checkins.checkins(CHECKIN_ID = "542ab920498eadb470df2bfc")
 checkins.add(venueId = "4b8dce90f964a5207f0e33e3")
 checkins.recent(ll = "19.3422177,-99.1990016")
 checkins.likes(CHECKIN_ID = "542ab920498eadb470df2bfc")
