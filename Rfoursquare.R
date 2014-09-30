@@ -1,14 +1,8 @@
-# https://foursquare.com/oauth2/localhost?code=EIEOFWDGZNFG1W2EOUDSDODGRJBHFGRFTJ33ZN3LS1ORZVNL#_=_
-# https://foursquare.com/oauth2/access_token?client_id=FQQ04T24I5FMPLVSJJSSNTW5GXCAHKQL12INNNJMZRA1KJIT&client_secret=O3QLBMI15KSGC1OW0LYNISDE3TNGTKE1MYGO5NQU5SQWNFFC&grant_type=authorization_code&redirect_uri=locahost&code=EIEOFWDGZNFG1W2EOUDSDODGRJBHFGRFTJ33ZN3LS1ORZVNL
-# mi id de fq = 95052895
-# DOCUMENTACION http://inlinedocs.r-forge.r-project.org/
-
 # response errors: https://developer.foursquare.com/overview/responses
 # Versioning:  https://developer.foursquare.com/overview/versioning
 # v=20140806
-# m=foursquare
-# Accept-language=en (default), es, fr, de, it, ja, th, tr, ko, ru, pt, and id.
-# add notice to policy https://developer.foursquare.com/overview/community
+# m=c("foursquare","swarm")
+# CHECK policy: https://developer.foursquare.com/overview/community
 
 ##################################################################
 ##################################################################
