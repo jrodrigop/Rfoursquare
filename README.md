@@ -10,7 +10,6 @@ Philosophy:
 
 Features:
 
-* OAuth dance
 * Full endpoint coverage
 
 
