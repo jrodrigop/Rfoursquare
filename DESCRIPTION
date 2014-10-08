@@ -1,9 +1,10 @@
 Package: Rfoursquare
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
+Title: R wrapper for the foursquare v2 API
+Version: 0.1
 Date: 2014-10-07
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Rodrigo Patiño
+Maintainer: Rodrigo Patiño <joserodrigopat@gmail.com>
+Description: One to one mapping of the Foursquare API written in R
+License: GPL-2
+Depends: httr, jsonlite

@@ -1,7 +1,3 @@
-library(jsonlite)
-library(httr)
-
-
 # Default API version. Move this forward as the library is maintained and kept current
 API_VERSION_YEAR  = '2014'
 API_VERSION_MONTH = '08'
@@ -15,7 +11,15 @@ AUTH_ENDPOINT = 'https://foursquare.com/oauth2/authenticate'
 TOKEN_ENDPOINT = 'https://foursquare.com/oauth2/access_token'
 API_ENDPOINT = 'https://api.foursquare.com/v2/'
 
-
+#' Initialize foursquare OAuth
+#' 
+#' Initialize using user app credentials and access token
+#' 
+#' @param CLIENT_ID User application client id
+#' @param CLIENT_SECRET User application client secret
+#' @param ACCESS_TOKEN Foursquare OAuth authorization token
+#' 
+#' @export
 initFoursquare <- function(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN){
   CLIENT_ID <<- CLIENT_ID
   CLIENT_SECRET <<- CLIENT_SECRET
@@ -109,6 +113,7 @@ fq_GET_or_POST <- function(end_point,params,requiresActingUsr,userRestrictions){
 #' 
 #' @return user A user.
 #' 
+#' @export
 #' @examples
 #' users.users(USER_ID="HZXXY3")
 users.users <- function(USER_ID="self",m="foursquare"){
@@ -117,7 +122,6 @@ users.users <- function(USER_ID="self",m="foursquare"){
 users.requests <- function(m="swarm"){
   fq_GET(end_point="users/requests",params=as.list( environment() ),requiresActingUsr="Yes")
 }
-
 
 #' Find users
 #' 
@@ -145,6 +149,7 @@ users.requests <- function(m="swarm"){
 #'	of unmatched search terms grouped into subarrays
 #'	corresponding to the term's parameter.
 #' 
+#' @export
 #' @examples
 #' users.search(phone="91712344567,123450",
 #'	email="foo@@bar.com,alice@@baz.com",
@@ -184,6 +189,7 @@ users.search <- function(phone=NULL, email=NULL, twitter=NULL, twitterSource=NUL
 #' 
 #' @return checkins A count and items of check-ins.
 #' 
+#' @export
 #' @examples
 #' users.checkins(USER_ID="self", limit="100", offset="100",
 #'	sort="newestfirst", afterTimestamp="1279044824",
@@ -207,6 +213,7 @@ users.checkins <- function(USER_ID="self", limit=NULL, offset=NULL, sort=NULL, a
 #' 
 #' @return friends A count and items of compact user objects.
 #' 
+#' @export
 #' @examples
 #' users.friends(USER_ID="HZXXY3Y", limit="100", offset="100")
 users.friends <- function(USER_ID="self", limit=NULL, offset=NULL,m="swarm"){
@@ -243,6 +250,7 @@ users.friends <- function(USER_ID="self", limit=NULL, offset=NULL,m="swarm"){
 #'	specified, there are a potentially unbounded number of
 #'	elements. items contains a sample of the items.
 #' 
+#' @export
 #' @examples
 #' users.lists(USER_ID="HZXXY3Y", group="edited",
 #'	ll="40.7,-74", limit="100", offset="100")
@@ -264,6 +272,7 @@ users.lists <- function(USER_ID="self", group=NULL, ll=NULL, limit=NULL, offset=
 #' @return mayorships A count and items of objects which
 #'	currently only contain compact venue objects.
 #' 
+#' @export
 #' @examples
 #' users.mayorships(USER_ID="HZXXY3Y")
 users.mayorships <- function(USER_ID="self",m="swarm"){
@@ -284,6 +293,7 @@ users.mayorships <- function(USER_ID="self",m="swarm"){
 #' 
 #' @return photos A count and items of photos.
 #' 
+#' @export
 #' @examples
 #' users.photos(USER_ID="self", limit="100", offset="100")
 users.photos <- function(USER_ID="self", limit=NULL, offset=NULL,m="foursquare"){
@@ -309,6 +319,7 @@ users.photos <- function(USER_ID="self", limit=NULL, offset=NULL,m="foursquare")
 #' 
 #' @return tips A count and items of tips.
 #' 
+#' @export
 #' @examples
 #' users.tips(USER_ID="HZXXY3Y", sort="recent", ll="33.7,44.2",
 #'	limit="100", offset="100")
@@ -335,6 +346,7 @@ users.tips <- function(USER_ID="self", sort=NULL, ll=NULL, limit=NULL, offset=NU
 #' @return venues A count and items of objects containing a
 #'	beenHere count and venue compact venues.
 #' 
+#' @export
 #' @examples
 #' users.venuehistory(USER_ID="self",
 #'	beforeTimestamp="123456789", afterTimestamp="123456789",
@@ -363,6 +375,7 @@ users.venuehistory <- function(USER_ID="self", beforeTimestamp=NULL, afterTimest
 #' @return venues A count and items of objects containing a
 #'	beenHere count and venue compact venues.
 #' 
+#' @export
 #' @examples
 #' users.venuelikes(USER_ID="self",
 #'	beforeTimestamp="123456789", afterTimestamp="123456789",
@@ -383,6 +396,7 @@ users.venuelikes <- function(USER_ID="self", beforeTimestamp=NULL, afterTimestam
 #' 
 #' @return user A user object for the approved user.
 #' 
+#' @export
 #' @examples
 #' users.approve(USER_ID="HZXXY3Y")
 users.approve <- function(USER_ID="self",m="swarm"){
@@ -401,6 +415,7 @@ users.approve <- function(USER_ID="self",m="swarm"){
 #' 
 #' @return user A user object for the denied user.
 #' 
+#' @export
 #' @examples
 #' users.deny(USER_ID="HZXXY3Y")
 users.deny <- function(USER_ID="self",m="swarm"){
@@ -421,6 +436,7 @@ users.deny <- function(USER_ID="self",m="swarm"){
 #' 
 #' @return user A user object for the user.
 #' 
+#' @export
 #' @examples
 #' users.setpings(USER_ID="HZXXY3", value="false")
 users.setpings <- function(USER_ID="self", value=NULL,m="swarm"){
@@ -441,6 +457,7 @@ users.setpings <- function(USER_ID="self", value=NULL,m="swarm"){
 #' 
 #' @return user A user.
 #' 
+#' @export
 #' @examples
 #' users.unfriend(USER_ID="HZXXY3")
 users.unfriend <- function(USER_ID="self",m="swarm"){
@@ -460,6 +477,7 @@ users.unfriend <- function(USER_ID="self",m="swarm"){
 ##' 
 ##' @return user The current user object.
 ##' 
+##' @export
 ##' @examples
 ##' users.update(photo	="file.jpg")
 #users.update <- function(photo	=NULL,m="swarm"){
@@ -482,6 +500,7 @@ users.unfriend <- function(USER_ID="self",m="swarm"){
 #' 
 #' @return venue A complete venue.
 #' 
+#' @export
 #' @examples
 #' venues.venues(VENUE_ID="A9ABCD")
 venues.venues <- function(VENUE_ID=NULL,m="foursquare"){
@@ -548,6 +567,7 @@ venues.venues <- function(VENUE_ID=NULL,m="foursquare"){
 #' 
 #' @return venue The venue that was just created.
 #' 
+#' @export
 #' @examples
 #' venues.add(name="Habana Outpost", address="1313 Mockingbird
 #'	Lane", crossStreet="at Fulton St", city="New York",
@@ -671,6 +691,7 @@ venues.categories <- function(m="foursquare"){
 #'	A message to the user based on their current context, e.g.
 #'	"Suggestions for Tuesday afternoon".
 #' 
+#' @export
 #' @examples
 #' venues.explore(ll="44.3,37.2", near="Chicago, IL",
 #'	llAcc="10000.0", alt="0", altAcc="10000.0", radius="250",
@@ -700,6 +721,7 @@ venues.explore <- function(ll=NULL, near=NULL, llAcc=NULL, alt=NULL, altAcc=NULL
 #' @return venues A count and items of compact venues the user
 #'	manages.
 #' 
+#' @export
 #' @examples
 #' venues.managed(limit="100", offset="500")
 venues.managed <- function(limit=NULL, offset=NULL,m="foursquare"){
@@ -803,6 +825,7 @@ venues.managed <- function(limit=NULL, offset=NULL,m="foursquare"){
 #' 
 #' @return venues An array of compact venues.
 #' 
+#' @export
 #' @examples
 #' venues.search(ll="44.3,37.2", near="Chicago, IL",
 #'	llAcc="10000.0", alt="0", altAcc="10000.0", query="donuts",
@@ -854,6 +877,7 @@ venues.search <- function(ll=NULL, near=NULL, llAcc=NULL, alt=NULL, altAcc=NULL,
 #' @return minivenues An array of venues that only contain id,
 #'	name, location, and categories.
 #' 
+#' @export
 #' @examples
 #' venues.suggestcompletion(ll="44.3,37.2", near="Chicago, IL",
 #'	llAcc="10000.0", alt="0", altAcc="10000.0",
@@ -888,6 +912,7 @@ venues.suggestcompletion <- function(ll=NULL, near=NULL, llAcc=NULL, alt=NULL, a
 #' @return timeseries An array of venue time series data
 #'	objects, one for each venue.
 #' 
+#' @export
 #' @examples
 #' venues.timeseries(venueId="AVNU234,AVNU567",
 #'	startAt="1284286794", endAt="1284286794",
@@ -914,6 +939,7 @@ venues.timeseries <- function(venueId=NULL, startAt=NULL, endAt=NULL, fields=NUL
 #' @return venues An array of venues that are currently
 #'	trending, with their hereNow populated.
 #' 
+#' @export
 #' @examples
 #' venues.trending(ll="44.3,37.2", limit="10", radius="100")
 venues.trending <- function(ll=NULL, limit=NULL, radius=NULL,m="swarm"){
@@ -937,6 +963,7 @@ venues.trending <- function(ll=NULL, limit=NULL, radius=NULL,m="swarm"){
 #'	includes a "summary" string describing the set of events at
 #'	the venue.
 #' 
+#' @export
 #' @examples
 #' venues.events(VENUE_ID="AVNU234")
 venues.events <- function(VENUE_ID=NULL,m="foursquare"){
@@ -965,6 +992,7 @@ venues.events <- function(VENUE_ID=NULL,m="foursquare"){
 #' 
 #' @return hereNow A count and items where items are checkins.
 #' 
+#' @export
 #' @examples
 #' venues.herenow(VENUE_ID="A9ABCD", limit="100", offset="100")
 venues.herenow <- function(VENUE_ID=NULL, limit=NULL, offset=NULL,m="swarm"){
@@ -984,6 +1012,7 @@ venues.herenow <- function(VENUE_ID=NULL, limit=NULL, offset=NULL,m="swarm"){
 #' @return hours An array of timeframes of open hours. An array
 #'	of timeframes of popular hours.
 #' 
+#' @export
 #' @examples
 #' venues.hours(VENUE_ID="XXX123YYYY")
 venues.hours <- function(VENUE_ID=NULL,m="foursquare"){
@@ -1005,6 +1034,7 @@ venues.hours <- function(VENUE_ID=NULL,m="foursquare"){
 #'	(indicating the relationship to the acting user), but are
 #'	subject to change.
 #' 
+#' @export
 #' @examples
 #' venues.likes(VENUE_ID="HZXXY3Y")
 venues.likes <- function(VENUE_ID=NULL,m="foursquare"){
@@ -1025,6 +1055,7 @@ venues.likes <- function(VENUE_ID=NULL,m="foursquare"){
 #' 
 #' @return links A count and items of links.
 #' 
+#' @export
 #' @examples
 #' venues.links(VENUE_ID="XXX123YYYY")
 venues.links <- function(VENUE_ID=NULL,m="foursquare"){
@@ -1055,6 +1086,7 @@ venues.links <- function(VENUE_ID=NULL,m="foursquare"){
 #'	not specified, there are a potentially unbounded number of
 #'	elements. items contains a sample of the lists.
 #' 
+#' @export
 #' @examples
 #' venues.listed(VENUE_ID="HZXXY3Y", group="edited",
 #'	limit="30", offset="300")
@@ -1083,6 +1115,7 @@ venues.listed <- function(VENUE_ID=NULL, group=NULL, limit=NULL, offset=NULL,m="
 #'	attributionText as well as link to attributionLink. A count
 #'	and items of menu.
 #' 
+#' @export
 #' @examples
 #' venues.menu(VENUE_ID="AVNU234")
 venues.menu <- function(VENUE_ID=NULL,m="foursquare"){
@@ -1106,6 +1139,7 @@ venues.menu <- function(VENUE_ID=NULL,m="foursquare"){
 #' @return nextVenues A count and items where items are compact
 #'	venues.
 #' 
+#' @export
 #' @examples
 #' venues.nextvenues(VENUE_ID="A9ABCD")
 venues.nextvenues <- function(VENUE_ID=NULL,m="swarm"){
@@ -1132,6 +1166,7 @@ venues.nextvenues <- function(VENUE_ID=NULL,m="swarm"){
 #' 
 #' @return photos A count and items of photo.
 #' 
+#' @export
 #' @examples
 #' venues.photos(VENUE_ID="XXX123YYYY", group="checkin",
 #'	limit="100", offset="100")
@@ -1152,6 +1187,7 @@ venues.photos <- function(VENUE_ID=NULL, group=NULL, limit=NULL, offset=NULL,m="
 #' 
 #' @return similarVenues A count and items of similar venues.
 #' 
+#' @export
 #' @examples
 #' venues.similar(VENUE_ID="XXX123YYYY")
 venues.similar <- function(VENUE_ID=NULL,m="foursquare"){
@@ -1178,6 +1214,7 @@ venues.similar <- function(VENUE_ID=NULL,m="foursquare"){
 #' 
 #' @return stats A venue stats object.
 #' 
+#' @export
 #' @examples
 #' venues.stats(VENUE_ID="AVNU234", startAt="1284286794",
 #'	endAt="1284286794")
@@ -1199,6 +1236,7 @@ venues.stats <- function(VENUE_ID=NULL, startAt=NULL, endAt=NULL,m="foursquare")
 #' 
 #' @return tips A count and items of tips.
 #' 
+#' @export
 #' @examples
 #' venues.tips(VENUE_ID="XXX123YYYY", sort="recent",
 #'	limit="100", offset="100")
@@ -1223,6 +1261,7 @@ venues.tips <- function(VENUE_ID=NULL, sort=NULL, limit=NULL, offset=NULL,m="fou
 #' 
 #' @return Empty response 
 #' 
+#' @export
 #' @examples
 #' venues.claim(visible="false")
 venues.claim <- function(visible=NULL,m="foursquare"){
@@ -1255,6 +1294,7 @@ venues.flag <- function(VENUE_ID=NULL, problem=NULL, venueId=NULL,m="foursquare"
 #'	(indicating the relationship to the acting user), but are
 #'	subject to change.
 #' 
+#' @export
 #' @examples
 #' venues.like(VENUE_ID="XXX123YYYY", set="1")
 venues.like <- function(VENUE_ID=NULL, set=NULL,m="foursquare"){
@@ -1283,6 +1323,7 @@ venues.setsinglelocation <- function(VENUE_ID=NULL,m="foursquare"){
 #' 
 #' @return venuegroup A venue group object.
 #' 
+#' @export
 #' @examples
 #' venuegroups.venuegroups(GROUP_ID="IHR8THISVNU")
 venuegroups.venuegroups <- function(GROUP_ID=NULL,m="foursquare"){
@@ -1309,6 +1350,7 @@ venuegroups.venuegroups <- function(GROUP_ID=NULL,m="foursquare"){
 #' 
 #' @return venue group A venue group object.
 #' 
+#' @export
 #' @examples
 #' venuegroups.add(name="Think Coffees", venueId="IHR8THISVNU")
 venuegroups.add <- function(name=NULL, venueId=NULL,m="foursquare"){
@@ -1329,6 +1371,7 @@ venuegroups.add <- function(name=NULL, venueId=NULL,m="foursquare"){
 #' 
 #' @return Success code or error message 
 #' 
+#' @export
 #' @examples
 #' venuegroups.delete(GROUP_ID="IHR8THISVNU")
 venuegroups.delete <- function(GROUP_ID=NULL,m="foursquare"){
@@ -1361,6 +1404,7 @@ venuegroups.list <- function(m="foursquare"){
 #' @return timeseries An array of venue time series data
 #'	objects, one for each venue in the group.
 #' 
+#' @export
 #' @examples
 #' venuegroups.timeseries(GROUP_ID="AGRP234",
 #'	startAt="1284286794", endAt="1284286794",
@@ -1384,6 +1428,7 @@ venuegroups.timeseries <- function(GROUP_ID=NULL, startAt=NULL, endAt=NULL, fiel
 #' 
 #' @return Success code or error message 
 #' 
+#' @export
 #' @examples
 #' venuegroups.addvenue(GROUP_ID="IHR8THISVNU",
 #'	venueId="IHR8THISVNU")
@@ -1409,6 +1454,7 @@ venuegroups.edit <- function(VENUEGROUP_ID=NULL, name=NULL, city=NULL, state=NUL
 #' 
 #' @return Success code or error message 
 #' 
+#' @export
 #' @examples
 #' venuegroups.removevenue(GROUP_ID="IHR8THISVNU",
 #'	venueId="IHR8THISVNU")
@@ -1434,6 +1480,7 @@ venuegroups.removevenue <- function(GROUP_ID=NULL, venueId=NULL,m="foursquare"){
 #' 
 #' @return venue group A venue group object.
 #' 
+#' @export
 #' @examples
 #' venuegroups.update(GROUP_ID="IHR8THISVNU", name="Think
 #'	Coffees", venueId="IHR8THISVNU")
@@ -1460,6 +1507,7 @@ venuegroups.update <- function(GROUP_ID=NULL, name=NULL, venueId=NULL,m="foursqu
 #' 
 #' @return checkin A complete checkin object.
 #' 
+#' @export
 #' @examples
 #' checkins.checkins(CHECKIN_ID="IHR8THISVNU",
 #'	signature="ASDJKASLJDLA")
@@ -1507,6 +1555,7 @@ checkins.checkins <- function(CHECKIN_ID=NULL, signature=NULL,m="swarm"){
 #' @return checkin A checkin object. A post-checkin
 #'	notifications object.
 #' 
+#' @export
 #' @examples
 #' checkins.add(venueId="IHR8THISVNU", eventId="UHR8THISVNT",
 #'	shout="There are crayons! Crayons!",
@@ -1539,6 +1588,7 @@ checkins.add <- function(venueId=NULL, eventId=NULL, shout=NULL, mentions=NULL, 
 #'	details present. Usually, venue details are also present,
 #'	depending on whether the checkin has a venue.
 #' 
+#' @export
 #' @examples
 #' checkins.recent(ll="44.3,37.2", limit="20",
 #'	afterTimestamp="123456")
@@ -1561,6 +1611,7 @@ checkins.recent <- function(ll=NULL, limit=NULL, afterTimestamp=NULL,m="swarm"){
 #'	(indicating the relationship to the acting user), but are
 #'	subject to change.
 #' 
+#' @export
 #' @examples
 #' checkins.likes(CHECKIN_ID="HZXXY3Y")
 checkins.likes <- function(CHECKIN_ID=NULL,m="swarm"){
@@ -1587,6 +1638,7 @@ checkins.likes <- function(CHECKIN_ID=NULL,m="swarm"){
 #' 
 #' @return comment The newly-created comment.
 #' 
+#' @export
 #' @examples
 #' checkins.addcomment(CHECKIN_ID="IHR8THISVNU",
 #'	text="Awesome!", mentions="5,10,HZXXY3Y;15,20,GZYYZ3Z")
@@ -1620,6 +1672,7 @@ checkins.addcomment <- function(CHECKIN_ID=NULL, text=NULL, mentions=NULL,m="swa
 #' 
 #' @return post The newly-created post.
 #' 
+#' @export
 #' @examples
 #' checkins.addpost(CHECKIN_ID="IHR8THISVNU", text="Awesome!",
 #'	url="http://your.site.com/path", contentId="3ER4GN93AFWE")
@@ -1642,6 +1695,7 @@ checkins.addpost <- function(CHECKIN_ID=NULL, text=NULL, url=NULL, contentId=NUL
 #' 
 #' @return checkin The checkin, minus this comment.
 #' 
+#' @export
 #' @examples
 #' checkins.deletecomment(CHECKIN_ID="IHR8THISVNU",
 #'	commentId="ABZQ200")
@@ -1666,6 +1720,7 @@ checkins.deletecomment <- function(CHECKIN_ID=NULL, commentId=NULL,m="swarm"){
 #'	(indicating the relationship to the acting user), but are
 #'	subject to change.
 #' 
+#' @export
 #' @examples
 #' checkins.like(CHECKIN_ID="XXX123YYYY", set="1")
 checkins.like <- function(CHECKIN_ID=NULL, set=NULL,m="swarm"){
@@ -1684,6 +1739,7 @@ checkins.like <- function(CHECKIN_ID=NULL, set=NULL,m="swarm"){
 #' 
 #' @return tip A complete tip.
 #' 
+#' @export
 #' @examples
 #' tips.tips(TIP_ID="A9ABCD")
 tips.tips <- function(TIP_ID=NULL,m="foursquare"){
@@ -1710,6 +1766,7 @@ tips.tips <- function(TIP_ID=NULL,m="foursquare"){
 #' 
 #' @return tip The newly-added tip.
 #' 
+#' @export
 #' @examples
 #' tips.add(venueId="XXX123YYYY", text="The donuts are tasty!",
 #'	url="http://blog.zagat.com/fast-food-survey-results-are-her
@@ -1733,6 +1790,7 @@ tips.add <- function(venueId=NULL, text=NULL, url=NULL, broadcast=NULL,m="foursq
 #'	relationship to the acting user), but are subject to
 #'	change.
 #' 
+#' @export
 #' @examples
 #' tips.likes(TIP_ID="HZXXY3Y")
 tips.likes <- function(TIP_ID=NULL,m="foursquare"){
@@ -1760,6 +1818,7 @@ tips.likes <- function(TIP_ID=NULL,m="foursquare"){
 #'	not specified, there are a potentially unbounded number of
 #'	elements. items contains a sample of the lists.
 #' 
+#' @export
 #' @examples
 #' tips.listed(TIP_ID="HZXXY3Y", group="edited")
 tips.listed <- function(TIP_ID=NULL, group=NULL,m="foursquare"){
@@ -1781,6 +1840,7 @@ tips.listed <- function(TIP_ID=NULL, group=NULL,m="foursquare"){
 #'	(indicating the relationship to the acting user), but are
 #'	subject to change.
 #' 
+#' @export
 #' @examples
 #' tips.saves(TIP_ID="HZXXY3Y")
 tips.saves <- function(TIP_ID=NULL,m="foursquare"){
@@ -1807,6 +1867,7 @@ tips.flag <- function(TIP_ID=NULL, comment=NULL, problem=NULL,m="foursquare"){
 #'	(indicating the relationship to the acting user), but are
 #'	subject to change.
 #' 
+#' @export
 #' @examples
 #' tips.like(TIP_ID="XXX123YYYY", set="1")
 tips.like <- function(TIP_ID=NULL, set=NULL,m="foursquare"){
@@ -1828,6 +1889,7 @@ tips.like <- function(TIP_ID=NULL, set=NULL,m="foursquare"){
 #' 
 #' @return tip The tip being acted on.
 #' 
+#' @export
 #' @examples
 #' tips.unmark(TIP_ID="XXX123YYYY")
 tips.unmark <- function(TIP_ID=NULL,m="foursquare"){
@@ -1861,6 +1923,7 @@ tips.unmark <- function(TIP_ID=NULL,m="foursquare"){
 #' 
 #' @return list A list object.
 #' 
+#' @export
 #' @examples
 #' lists.lists(LIST_ID="A9ABCD", limit="100", offset="100",
 #'	llBounds="30.13800,-98.16009,30.40485,-97.28118",
@@ -1896,6 +1959,7 @@ lists.lists <- function(USER_ID=NULL, defaultList="todos", LIST_ID=NULL, limit=N
 #' 
 #' @return list The list that was just created
 #' 
+#' @export
 #' @examples
 #' lists.add(name="Max's Favorite Ramen Spots",
 #'	description="Must visit ramen spots according to Max.",
@@ -1916,6 +1980,7 @@ lists.add <- function(name=NULL, description=NULL, collaborative=NULL, photoId=N
 #' 
 #' @return followers Returns a pageable list of compact user.
 #' 
+#' @export
 #' @examples
 #' lists.followers(LIST_ID="HZXXY3Y")
 lists.followers <- function(LIST_ID=NULL,m="foursquare"){
@@ -1936,6 +2001,7 @@ lists.followers <- function(LIST_ID=NULL,m="foursquare"){
 #' 
 #' @return list An item object.
 #' 
+#' @export
 #' @examples
 #' lists.items(LIST_ID="A9ABCD", ITEM_ID="U7EU8R")
 lists.items <- function(LIST_ID=NULL, ITEM_ID=NULL,m="foursquare"){
@@ -1957,6 +2023,7 @@ lists.items <- function(LIST_ID=NULL, ITEM_ID=NULL,m="foursquare"){
 #'	(indicating the relationship to the acting user), but are
 #'	subject to change.
 #' 
+#' @export
 #' @examples
 #' lists.saves(LIST_ID="HZXXY3Y")
 lists.saves <- function(LIST_ID=NULL,m="foursquare"){
@@ -1979,6 +2046,7 @@ lists.saves <- function(LIST_ID=NULL,m="foursquare"){
 #'	lists (a count and items of photos) of photos uploaded by
 #'	this user and uploaded by other users.
 #' 
+#' @export
 #' @examples
 #' lists.suggestphoto(LIST_ID="HZXXY3Y", itemId="HZXXY3Y")
 lists.suggestphoto <- function(LIST_ID=NULL, itemId=NULL,m="foursquare"){
@@ -2001,6 +2069,7 @@ lists.suggestphoto <- function(LIST_ID=NULL, itemId=NULL,m="foursquare"){
 #'	(a count and items of tips) of tips created by this user
 #'	and created by other users.
 #' 
+#' @export
 #' @examples
 #' lists.suggesttip(LIST_ID="HZXXY3Y", itemId="HZXXY3Y")
 lists.suggesttip <- function(LIST_ID=NULL, itemId=NULL,m="foursquare"){
@@ -2021,6 +2090,7 @@ lists.suggesttip <- function(LIST_ID=NULL, itemId=NULL,m="foursquare"){
 #' @return suggestedVenues An array of compact venues that may
 #'	be appropriate for this list.
 #' 
+#' @export
 #' @examples
 #' lists.suggestvenues(LIST_ID="HZXXY3Y")
 lists.suggestvenues <- function(LIST_ID=NULL,m="foursquare"){
@@ -2056,6 +2126,7 @@ lists.suggestvenues <- function(LIST_ID=NULL,m="foursquare"){
 #' 
 #' @return list item The list item that was just added.
 #' 
+#' @export
 #' @examples
 #' lists.additem(LIST_ID="HZXXY3Y", venueId="HZXXY3Y",
 #'	url="http://nyt.com", tipId="HZXXY3Y", listId="HZXXY3Y",
@@ -2086,6 +2157,7 @@ lists.additem <- function(LIST_ID=NULL, venueId=NULL, url=NULL, tipId=NULL, list
 #' @return list items A count and items of list item that were
 #'	just deleted.
 #' 
+#' @export
 #' @examples
 #' lists.deleteitem(LIST_ID="HZXXY3Y", itemId="HZXXY3Y",
 #'	venueId="HZXXY3Y", tipId="HZXXY3Y")
@@ -2106,6 +2178,7 @@ lists.deleteitem <- function(LIST_ID=NULL, itemId=NULL, venueId=NULL, tipId=NULL
 #' 
 #' @return list The list that was just followed.
 #' 
+#' @export
 #' @examples
 #' lists.follow(LIST_ID="HZXXY3Y")
 lists.follow <- function(LIST_ID=NULL,m="foursquare"){
@@ -2129,6 +2202,7 @@ lists.follow <- function(LIST_ID=NULL,m="foursquare"){
 #' 
 #' @return list The list that was just edited.
 #' 
+#' @export
 #' @examples
 #' lists.moveitem(LIST_ID="HZXXY3Y", itemId="HZXXY3Y",
 #'	beforeId="HZXXY3Y", afterId="HZXXY3Y")
@@ -2152,6 +2226,7 @@ lists.share <- function(LIST_ID=NULL, broadcast=NULL, message=NULL,m="foursquare
 #' 
 #' @return list The list that was just unfollowed.
 #' 
+#' @export
 #' @examples
 #' lists.unfollow(LIST_ID="HZXXY3Y")
 lists.unfollow <- function(LIST_ID=NULL,m="foursquare"){
@@ -2183,6 +2258,7 @@ lists.unfollow <- function(LIST_ID=NULL,m="foursquare"){
 #' 
 #' @return list The list that was just edited.
 #' 
+#' @export
 #' @examples
 #' lists.update(LIST_ID="HZXXY3Y", name="Max's Favorite Ramen
 #'	Spots", description="Must visit ramen spots according to
@@ -2219,6 +2295,7 @@ lists.update <- function(LIST_ID=NULL, name=NULL, description=NULL, collaborativ
 #' 
 #' @return list item The updated list item.
 #' 
+#' @export
 #' @examples
 #' lists.updateitem(LIST_ID="HZXXY3Y", itemId="HZXXY3Y",
 #'	tipId="HZXXY3Y", text="This ramen spot is the jam",
@@ -2239,6 +2316,7 @@ lists.updateitem <- function(LIST_ID=NULL, itemId=NULL, tipId=NULL, text=NULL, u
 #' 
 #' @return notification A update.
 #' 
+#' @export
 #' @examples
 #' updates.updates(UPDATE_ID="BTEP567")
 updates.updates <- function(UPDATE_ID=NULL,m="foursquare"){
@@ -2262,6 +2340,7 @@ updates.updates <- function(UPDATE_ID=NULL,m="foursquare"){
 #' 
 #' @return notifications The user's notification updates.
 #' 
+#' @export
 #' @examples
 #' updates.notifications(limit="20")
 updates.notifications <- function(limit=NULL,m="foursquare"){
@@ -2285,6 +2364,7 @@ updates.marknotificationsread <- function(highWatermark=NULL,m="foursquare"){
 #' 
 #' @return photo A complete photo object.
 #' 
+#' @export
 #' @examples
 #' photos.photos(PHOTO_ID="4d0fb8162d39a340637dc42b")
 photos.photos <- function(PHOTO_ID=NULL,m="foursquare"){
@@ -2361,6 +2441,7 @@ photos.photos <- function(PHOTO_ID=NULL,m="foursquare"){
 ##' 
 ##' @return photo The photo that was just created.
 ##' 
+##' @export
 ##' @examples
 ##' photos.add(checkinId="IHR8THISVNU", tipId="IHR8THISVNU",
 ##'	venueId="IHR8THISVNU", pageId="2345", broadcast="twitter",
@@ -2384,6 +2465,7 @@ photos.photos <- function(PHOTO_ID=NULL,m="foursquare"){
 #' @return value The value for this setting for the acting
 #'	user.
 #' 
+#' @export
 #' @examples
 #' settings.settings(SETTING_ID="receivePings")
 settings.settings <- function(SETTING_ID=NULL,m="foursquare"){
@@ -2410,6 +2492,7 @@ settings.all <- function(m="foursquare"){
 #' 
 #' @return message A confirmation message.
 #' 
+#' @export
 #' @examples
 #' settings.set(SETTING_ID="sendBadgesToTwitter", value="1")
 settings.set <- function(SETTING_ID=NULL, value=NULL,m="foursquare"){
@@ -2434,6 +2517,7 @@ settings.set <- function(SETTING_ID=NULL, value=NULL,m="foursquare"){
 #' 
 #' @return special A complete special.
 #' 
+#' @export
 #' @examples
 #' specials.specials(SPECIAL_ID="A9ABCD", venueId="B92CD1",
 #'	userId="2462")
@@ -2470,6 +2554,7 @@ specials.specials <- function(SPECIAL_ID=NULL, venueId=NULL, userId=NULL,m="four
 #' 
 #' @return special A special object.
 #' 
+#' @export
 #' @examples
 #' specials.add(name="Mayor Special", text="Congrats, as the
 #'	Mayor, you get a free side!", finePrint="Does not include
@@ -2495,6 +2580,7 @@ specials.add <- function(name=NULL, text=NULL, finePrint=NULL, count1=NULL, type
 #' 
 #' @return specials A count and items of specials.
 #' 
+#' @export
 #' @examples
 #' specials.list(venueId="IHR8THISVNU", status="active")
 specials.list <- function(venueId=NULL, status=NULL,m="foursquare"){
@@ -2522,6 +2608,7 @@ specials.list <- function(venueId=NULL, status=NULL,m="foursquare"){
 #'	specials array returned by the venue detail endpoint. Each
 #'	special in the returned array contains a compact venue.
 #' 
+#' @export
 #' @examples
 #' specials.search(ll="44.3,37.2", radius="800",
 #'	llAcc="10000.0", alt="0", altAcc="10000.0", limit="10")
@@ -2545,6 +2632,7 @@ specials.flag <- function(ID=NULL, venueId=NULL, problem=NULL, text=NULL,m="four
 #' 
 #' @return event A complete event object.
 #' 
+#' @export
 #' @examples
 #' events.events(EVENT_ID="4d0fb8162d39a340637dc42b")
 events.events <- function(EVENT_ID=NULL,m="foursquare"){
@@ -2575,6 +2663,7 @@ events.categories <- function(m="foursquare"){
 #' 
 #' @return event An array of compact events.
 #' 
+#' @export
 #' @examples
 #' events.search(domain="songkick.com",
 #'	eventId_or_participantId="8183976")
@@ -2607,6 +2696,7 @@ events.search <- function(domain=NULL, eventId=NULL, participantId=NULL,m="fours
 #' 
 #' @return event An event object.
 #' 
+#' @export
 #' @examples
 #' events.add(venueId="f8ea99941e", name=""Trivia Night!"",
 #'	startAt="1355469600", endAt="1355470000")
@@ -2629,6 +2719,7 @@ events.add <- function(venueId=NULL, name=NULL, startAt=NULL, endAt=NULL,m="four
 #'	created. An OAuth access token for this page for the acting
 #'	OAuth consumer.
 #' 
+#' @export
 #' @examples
 #' pages.add(name="Habana Outpost")
 pages.add <- function(name=NULL,m="foursquare"){
@@ -2652,6 +2743,7 @@ pages.managing <- function(m="foursquare"){
 #' @return access_token An OAuth access token for this page for
 #'	the acting OAuth consumer.
 #' 
+#' @export
 #' @examples
 #' pages.access(USER_ID="HZXXY3")
 pages.access <- function(USER_ID="self",m="foursquare"){
@@ -2677,6 +2769,7 @@ pages.access <- function(USER_ID="self",m="foursquare"){
 #'	user, Both followers and tips contain a count and tips may
 #'	also contain an array of selected tips as items.
 #' 
+#' @export
 #' @examples
 #' pages.similar(USER_ID="HZXXY3", limit="20", offset="100",
 #'	includeFollowing="true")
@@ -2708,6 +2801,7 @@ pages.similar <- function(USER_ID="self", limit=NULL, offset=NULL, includeFollow
 #' @return timeseries An array of venue time series data
 #'	objects, one for each venue the page manages.
 #' 
+#' @export
 #' @examples
 #' pages.timeseries(PAGE_ID="2345", startAt="1284286794",
 #'	endAt="1284286794", fields="totalCheckins,newCheckins")
@@ -2749,6 +2843,7 @@ pages.timeseries <- function(PAGE_ID=NULL, startAt=NULL, endAt=NULL, fields=NULL
 #' 
 #' @return venues A count and items of compact venues.
 #' 
+#' @export
 #' @examples
 #' pages.venues(PAGE_ID="AVNU234", ll="44.3,37.2",
 #'	radius="800", sw="44.3,37.2", ne="44.1,37.4", offset="50",
@@ -2774,6 +2869,7 @@ pages.venues <- function(PAGE_ID=NULL, ll=NULL, radius=NULL, sw=NULL, ne=NULL, o
 #' @return user A user object representing the page the acting
 #'	user has just followed or unfollowed.
 #' 
+#' @export
 #' @examples
 #' pages.follow(USER_ID="XXX123YYYY", set="1")
 #pages.follow <- function(USER_ID="self", set=NULL,m="foursquare"){
@@ -2796,6 +2892,7 @@ pages.venues <- function(PAGE_ID=NULL, ll=NULL, radius=NULL, sw=NULL, ne=NULL, o
 #' 
 #' @return pageUpdate A page update object.
 #' 
+#' @export
 #' @examples
 #' pageupdates.pageupdates(UPDATE_ID="23456", limit="10",
 #'	ll="40.74,-74.0")
@@ -2837,6 +2934,7 @@ pageupdates.pageupdates <- function(UPDATE_ID=NULL, limit=NULL, ll=NULL,m="fours
 #' 
 #' @return pageUpdate A page update object.
 #' 
+#' @export
 #' @examples
 #' pageupdates.add(pageId="23456", groupId="f8ea99941e",
 #'	venueId="f8ea99941e", shout=""Try our new summer dish!"",
